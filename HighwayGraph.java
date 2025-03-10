@@ -222,5 +222,48 @@ public class HighwayGraph
         System.out.println(g);
 
 	// ADD CODE HERE TO COMPLETE LAB TASKS
-    }
+
+	    Vertex northExtreme = g.vertices[0], southExtreme = g.vertices[0], eastExtreme = g.vertices[0], 
+            westExtreme = g.vertices[0], longestVLabel = g.vertices[0], shortestVLabel = g.vertices[0];
+
+        for (Vertex v : g.vertices) {
+            if(v.point.lat > northExtreme.point.lat){
+                northExtreme = v;
+            } if(v.point.lat < southExtreme.point.lat) {
+                southExtreme = v;
+            } if(v.point.lng < eastExtreme.point.lng) {
+                eastExtreme = v;
+            } if(v.point.lng > westExtreme.point.lng) {
+                westExtreme = v;
+            } if(v.label.length() > longestVLabel.label.length()){
+                longestVLabel = v;
+            } if(v.label.length() < shortestVLabel.label.length()){
+                shortestVLabel = v;
+            } 
+        }
+        System.out.println("Northernmost Vertex: " + northExtreme.label + " " + northExt.point);
+        System.out.println("Southernmost Vertex: " + southExtreme.label + " " + southExt.point);
+        System.out.println("Easternmost Vertex: " + eastExtreme.label + " " + eastExt.point);
+        System.out.println("Westernmost Vertex: " + westExtreme.label + " " + westExt.point);
+        System.out.println("Shortest Vertex Label: " + shortestVLabel.label + " " + shortestVLabel.point);
+        System.out.println("Longest Vertex Label: " + longestVLabel.label + " " + longestVLabel.point);
+        System.out.println();
+
+        Edge longestEdge = null, shortestEdge = null;
+
+        for (Vertex v : g.vertices) {
+            Edge e = v.head;
+            while (e != null) { 
+                if (longestEdge == null || e.length > longestEdge.length) {
+                    longestEdge = e;
+                }
+                if (shortestEdge == null || e.length < shortestEdge.length) {
+                    shortestEdge = e;
+                }
+                e = e.next;
+            }
+        }
+        System.out.println("Longest Edge: " + longestEdge.label + " with length " + longestEdge.length);
+        System.out.println("Shortest Edge: " + shortestEdge.label + " with length " + shortestEdge.length);
+    } 
 }
