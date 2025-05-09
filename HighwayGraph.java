@@ -251,19 +251,27 @@ public class HighwayGraph
 
         Edge longestEdge = null, shortestEdge = null;
 
-        for (Vertex v : g.vertices) {
+   int count = 0;
+        for (int i = 0; i < g.vertices.length; i++) {
+            Vertex v = g.vertices[i];
             Edge e = v.head;
-            while (e != null) { 
-                if (longestEdge == null || e.length > longestEdge.length) {
-                    longestEdge = e;
-                }
-                if (shortestEdge == null || e.length < shortestEdge.length) {
-                    shortestEdge = e;
+            while (e != null) {
+                if (i < e.dest) {
+                    count++;
+                    if (longestEdge == null || e.length > longestEdge.length) {
+                        longestEdge = e;
+                    }
+                    if (shortestEdge == null || e.length < shortestEdge.length) {
+                        shortestEdge = e;
+                    }
                 }
                 e = e.next;
             }
         }
         System.out.println("Longest Edge: " + longestEdge.label + " with length " + longestEdge.length);
         System.out.println("Shortest Edge: " + shortestEdge.label + " with length " + shortestEdge.length);
+
+        System.out.println("Count: "+count);
+        System.out.println("Edge Count: "+g.numEdges);
     } 
 }
